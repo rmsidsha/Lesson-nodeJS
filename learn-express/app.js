@@ -13,11 +13,26 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+// Createed user middle ware
+/* app.use(function(req, res, next){
+  console.log("I'm middle ware too");
+  next();  //next가 없으면 다음 것이 실행 안됨.
+});
+ */
 app.use(logger('dev'));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+/*  ↓SAME WAY
+app.use(
+  logger('dev'),
+  espress.static(path.join(__dirname, 'public')),
+  express.json(),
+  express.urlencoded({ extended: false }),
+  cookieParse()
+); */
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
